@@ -21,7 +21,9 @@
     <header class="sticky top-0 z-50">
         {% include 'partials/navigation.html.twig' %}
     </header>
-    {% include 'partials/header.html.twig' %}
+    {% if block('header') is defined %}
+        {% include 'partials/header.html.twig' %}
+    {% endif %}
     <main class="min-h-screen">
         {% block body %}{% endblock %}
     </main>
