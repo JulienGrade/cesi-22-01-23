@@ -19,8 +19,9 @@
     </head>
     <body class="bg-main-white">
     <header class="sticky top-0 z-50">
-        {% include 'partials/header.html.twig' %}
+        {% include 'partials/navigation.html.twig' %}
     </header>
+    {% include 'partials/header.html.twig' %}
     <main class="min-h-screen">
         {% block body %}{% endblock %}
     </main>

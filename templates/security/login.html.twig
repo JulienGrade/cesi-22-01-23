@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - TailBlog{% endblock %}
+
+{% block body %}
+    <div class="bg-main-white dark:bg-main-blue">
+        <div class="flex justify-center h-screen">
+
+            <div class="hidden bg-cover lg:block lg:w-2/3" style="background-image: url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)">
+                {% for message in app.flashes('success_register') %}
+                    <div class="bg-gray-900 bg-opacity-40">
+                        <div class="bg-main-green w-full alerted mt-5 rounded-lg p-4 mb-4 text-main-white mx-auto" role="alert">
+                            {{ message }}
+                            <button class="bg-transparent text-2xl font-semibold leading-none clothesline text-main-white float-right outline-none focus:outline-none" onclick="closeAlert(event)">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="flex items-center h-full px-20 ">
+                    <div>
+                        <h2 class="text-4xl font-bold text-white">TailBlog</h2>
+
+                        <p class="max-w-xl mt-3 text-gray-300">Connectez vous à votre compte afin d'administrer votre blog ou intéragir avec les autres utilisateurs.</p>
+                        <p class="max-w-xl mt-3 text-gray-300">Si vous n'avez pas encore de compte vous pouvez en créer un <a>ICI</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+                <div class="flex-1">
+                    <div class="text-center">
+                        <h2 class="text-4xl font-bold text-center text-gray-700 dark:text-main-white">TailBlog</h2>
+
+                        <p class="mt-3 text-gray-500 dark:text-gray-300">Connexion à votre compte</p>
+                    </div>
+
+                    <div class="mt-8">
+                        <form method="post">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    Vous êtes connecté au compte {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                                </div>
+                            {% endif %}
+                            <div>
+                                <label for="inputEmail" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email</label>
+                                <input type="email" name="email" id="inputEmail" placeholder="example@example.com" required class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                            </div>
+
+                            <div class="mt-6">
+                                <div class="flex justify-between mb-2">
+                                    <label for="inputPassword" class="text-sm text-gray-600 dark:text-gray-200">Mot de passe</label>
+                                    <a href="#" class="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline">Mot de passe oublié ?</a>
+                                </div>
+
+                                <input type="password" name="password" id="inputPassword" placeholder="Votre mot de passe" autocomplete="current-password" required class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                            </div>
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+
+                            <div class="mt-6">
+                                <button
+                                        type="submit"
+                                        class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-main-blue rounded-md hover:text-main-blue hover:bg-main-light-blue focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                                    Connexion
+                                </button>
+                            </div>
+
+                        </form>
+
+                        <p class="mt-6 text-sm text-center text-gray-400">Vous n'avez pas de compte? <a href="#" class="text-blue-500 focus:outline-none focus:underline hover:underline">Créer son compte</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
