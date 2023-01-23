@@ -73,7 +73,7 @@ class RegisterType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'S\'inscrire',
                 'attr' => [
-                    'class' => 'my-8 w-full px-4 tracking-wide text-white transition-colors duration-200 transform bg-main-blue rounded-md hover:text-main-blue hover:bg-main-white focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
+                    'class' => 'my-8 w-full py-2 px-4 tracking-wide text-white transition-colors duration-200 transform bg-main-blue rounded-md hover:text-main-blue hover:bg-main-white focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
                 ]
             ])
         ;

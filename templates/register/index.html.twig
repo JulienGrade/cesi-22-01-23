@@ -1,20 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RegisterController!{% endblock %}
+{% block title %}Inscription - TailBlog{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Applications/XAMPP/xamppfiles/htdocs/cesi/tailblog/src/Controller/RegisterController.php'|file_link(0) }}">src/Controller/RegisterController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Applications/XAMPP/xamppfiles/htdocs/cesi/tailblog/templates/register/index.html.twig'|file_link(0) }}">templates/register/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="relative min-h-screen flex">
+        <div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-main-white">
+            <div class="sm:w-1/2 xl:w-2/5 h-full hidden md:flex flex-auto items-center justify-start p-10 overflow-hidden bg-main-blue text-white bg-no-repeat bg-cover relative" style="background-image: url('{{ asset('assets/media/img/login.avif') }}');">
+                <div class="absolute bg-gradient-to-b from-main-blue to-main-light-blue opacity-75 inset-0 z-0"></div>
+                <div class="absolute triangle  min-h-screen right-0 w-16" style=""></div>
+                <div class="w-full  max-w-md z-10">
+                    <div class="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">S'inscrire</div>
+                    <div class="sm:text-sm xl:text-md text-gray-200 font-normal">
+                        <p>
+                            En vous inscrivant sur TailBlog vous pourrez créer votre propre blog en quelques clics et commencer à publier des articles, votre inscription vous permet également de pouvoir interagir avec les autres utilisateurs comme commenter les articles.
+                        </p>
+                    </div>
+                </div>
+                <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-main-white ">
+                <div class="max-w-md w-full space-y-8">
+                    <div class="text-center">
+                        <h2 class="mt-6 text-3xl font-bold text-gray-900">
+                            Bienvenue !
+                        </h2>
+                        <p class="mt-2 text-sm text-gray-500">Veuillez saisir vos informations</p>
+                    </div>
+                    <div class="flex items-center justify-center space-x-2">
+                        <span class="h-px w-16 bg-gray-500"></span>
+                        <span class="text-gray-700 font-normal">Vos informations</span>
+                        <span class="h-px w-16 bg-gray-500"></span>
+                    </div>
+                    {% if notification != null %}
+                        <p class="text-main-red text-center">L'email saisit est déjà enregistré sur le site !</p>
+                    {% endif %}
+                    {{ form_start(registerForm) }}
+                    <div>
+                        {{ form_row(registerForm.pseudo) }}
+                    </div>
+                    <div>
+                        {{ form_row(registerForm.email) }}
+                    </div>
+                    <div>
+                        {{ form_row(registerForm.password) }}
+                    </div>
+                    <div>
+                        {{ form_row(registerForm.avatar) }}
+                    </div>
+                    <div class="mt-5">
+                        {{ form_row(registerForm.submit) }}
+                    </div>
+                    {{ form_end(registerForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
