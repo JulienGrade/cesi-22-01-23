@@ -17,7 +17,14 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="bg-main-white">
+    <header class="sticky top-0 z-50">
+        {% include 'partials/navigation.html.twig' %}
+        {% include 'partials/header.html.twig' %}
+    </header>
+    <main class="min-h-screen">
         {% block body %}{% endblock %}
+    </main>
+    {% include 'partials/footer.html.twig' %}
     </body>
 </html>

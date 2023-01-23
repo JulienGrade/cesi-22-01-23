@@ -1,0 +1,76 @@
+<footer class="bg-main-blue text-main-white">
+    <div class="flex justify-end pt-5 mr-5">
+        <button onclick="topFunction()" id="scrollToTopButton" title="Haut de page"><svg class="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12" xmlns="http://www.w3.org/2000/svg" xmlns:svgjs="http://svgjs.com/svgjs" xmlns:xlink="http://www.w3.org/1999/xlink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="#fff" d="M67.9 57.4c-.8.8-2 .8-2.8 0L50.4 42.7 34.9 58.2c-.8.8-2 .8-2.8 0-.8-.8-.8-2 0-2.8L49 38.5c.8-.8 2.1-.8 2.8 0l16.1 16.1c.8.8.8 2 0 2.8zM88 50c0 21-17 38-38 38S12 71 12 50s17-38 38-38 38 17 38 38zm-4 0c0-18.8-15.3-34-34-34-18.8 0-34 15.2-34 34s15.2 34 34 34c18.7 0 34-15.2 34-34z" class="color000 svgShape"/><path fill="#00f" d="M1224-1210V474H-560v-1684h1784m8-8H-568V482h1800v-1700z" class="color00F svgShape"/></svg></svg></button>
+    </div>
+    <div class="px-4 md:pt-5 lg:pt-10 mx-auto sm:max-w-xl md:max-w-full lg:max-w-6xl md:px-24 lg:px-8">
+        <div class="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
+            <div class="md:max-w-md lg:col-span-2">
+                <a href="#" class="flex items-center py-4 md:px-2">
+                    <h1 class="text-main-white lg:text-xl xl:text-2xl">Plateforme TailBlog</h1>
+                </a>
+                <div class="mt-4 lg:max-w-sm">
+                    <p class="text-sm">
+                        88 Route nationale
+                    </p>
+                    <p class="mt-4 text-sm">
+                        59350 Lille
+                    </p>
+                    <p class="mt-4 text-sm">
+                        08 54 24 55 55
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
+                <div>
+                    <p class="font-black underline underline-offset-4 logo-font tracking-wide">Accès rapide</p>
+                    <ul class="mt-2 space-y-2 text-main-white logo-font">
+                        <li>
+                            <a title="Aller vers la page d'accueil" href="#" class="transition-colors duration-300 hover:text-deep-purple-accent-400">Accueil</a>
+                        </li>
+                        <li>
+                            <a title="Aller vers la page Les Blogs" href="#" class="transition-colors duration-300 hover:text-deep-purple-accent-400">Les Blogs</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="font-black underline underline-offset-4 logo-font tracking-wide">En savoir plus</p>
+                    <ul class="mt-2 space-y-2 text-main-white logo-font">
+                        <li>
+                            <a title="Aller vers la page à propos" href="#" class="transition-colors duration-300 hover:text-deep-purple-accent-400">Notre Concept</a>
+                        </li>
+                        <li>
+                            <a title="Aller vers la page contact" href="#" class="transition-colors duration-300 hover:text-deep-purple-accent-400">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="font-black underline underline-offset-4 tracking-wide logo-font text-main-white">Mentions légales</p>
+                    <ul class="mt-2 space-y-2 text-main-white logo-font">
+                        <li>
+                            <a title="Conditions générales d'utilisation" class="transition-colors duration-300 hover:text-deep-purple-accent-400">CGU</a>
+                        </li>
+                        <li>
+                            <a title="Conditions générales de ventes"  class="transition-colors duration-300 hover:text-deep-purple-accent-400">CGV</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col justify-between pt-5 pb-10 border-t sm:flex-row">
+            <p class="text-sm text-main-white">
+                © Copyright 2023 Cesi. Tous droits réservés.
+            </p>
+        </div>
+    </div>
+</footer>
+
+{% block javascripts %}
+    <script>
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+{% endblock %}

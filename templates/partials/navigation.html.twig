@@ -1,0 +1,77 @@
+<div id="top" class="flex flex-col w-full">
+    <nav class="bg-main-blue shadow-lg">
+        <!-- Menu version mobile -->
+        <div id="side-menu" class="fixed top-0 left-0 z-90 w-0 h-0 flex justify-center items-center bg-main-blue opacity-0 duration-700">
+            <div id="menu-content" class="hidden flex flex-col text-white text-center text-xl font-light space-y-3">
+                <button class="absolute top-6 right-8 text-main-white hover:text-amber-500 text-7xl font-extrabold duration-1000" onclick="closeMenu()">&times;</button>
+                <a class="text-main-white" title="Accueil" href="#">Accueil</a>
+                <a class="text-main-white" title="Les Blogs" href="#">Les Blogs</a>
+                <a class="text-main-white" title="Les Blogs" href="#">Notre Concept</a>
+                <a class="text-main-white" title="Contact" href="#">Contact</a>
+            </div>
+        </div>
+        <div class="w-full mx-auto px-4">
+            <div class="flex w-full">
+                <div class="flex space-x-7 w-full">
+                    <!-- Logo -->
+                    <div>
+                        <a href="#" class="flex items-center py-4 md:px-2">
+                            <h1 class="text-main-white lg:text-xl xl:text-2xl">Plateforme TailBlog</h1>
+                        </a>
+                    </div>
+                    <!-- Menu -->
+                    <div class="hidden lg:flex items-center lg:pl-10 xl:pl-60 lg:space-x-0.5 xl:space-x-2">
+                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="#" title="Accueil">Accueil</a>
+                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="#" title="Les Blog">Les Blogs</a>
+                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="#" title="Notre concept">Notre Concept</a>
+                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="#" title="Contact">Contact</a>
+                    </div>
+
+                    <!-- Bouton de menu version mobile -->
+                    <div id="button-menu" class="lg:hidden flex items-center absolute right-3 top-3 lp:pl-24">
+                        <button onclick="openMenu()" class="outline-none text-main-white mobile-menu-button">
+                            <svg
+                                    class="w-8 h-8 md:w-10 md:h-10 text-main-white"
+                                    x-show="!showMenu"
+                                    fill="none"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                            >
+                                <path d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+</div>
+
+{% block javascripts %}
+    <script>
+        const sideMenu = document.getElementById('side-menu');
+        const buttonMenu = document.getElementById('button-menu');
+        const menuContent = document.getElementById('menu-content');
+
+        function openMenu() {
+            sideMenu.classList.remove("w-0", "h-0", "opacity-0");
+            menuContent.classList.remove("hidden");
+            sideMenu.classList.add("w-screen", "h-screen", "opacity-95");
+            buttonMenu.classList.remove("flex");
+            buttonMenu.classList.add("hidden");
+        }
+
+        function closeMenu() {
+            sideMenu.classList.remove("w-screen", "h-screen", "opacity-95");
+            sideMenu.classList.add("w-0", "h-0", "opacity-0");
+            menuContent.classList.add("hidden");
+            buttonMenu.classList.add("flex");
+            buttonMenu.classList.remove("hidden");
+
+        }
+    </script>
+{% endblock %}
