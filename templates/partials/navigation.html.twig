@@ -4,10 +4,10 @@
         <div id="side-menu" class="fixed top-0 left-0 z-90 w-0 h-0 flex justify-center items-center bg-main-blue opacity-0 duration-700">
             <div id="menu-content" class="hidden flex flex-col text-white text-center text-xl font-light space-y-3">
                 <button class="absolute top-6 right-8 text-main-white hover:text-amber-500 text-7xl font-extrabold duration-1000" onclick="closeMenu()">&times;</button>
-                <a class="text-main-white" title="Accueil" href="#">Accueil</a>
-                <a class="text-main-white" title="Les Blogs" href="#">Les Blogs</a>
-                <a class="text-main-white" title="Les Blogs" href="#">Notre Concept</a>
-                <a class="text-main-white" title="Contact" href="#">Contact</a>
+                <a class="text-main-white" title="Accueil" href="{{ path('homepage') }}">Accueil</a>
+                <a class="text-main-white" title="Les Blogs" href="{{ path('blogs') }}">Les Blogs</a>
+                <a class="text-main-white" title="Notre concept" href="{{ path('concept') }}">Notre Concept</a>
+                <a class="text-main-white" title="Contact" href="{{ path('contact') }}">Contact</a>
             </div>
         </div>
         <div class="w-full mx-auto px-4">
@@ -21,10 +21,10 @@
                     </div>
                     <!-- Menu -->
                     <div class="hidden lg:flex items-center lg:pl-10 xl:pl-60 lg:space-x-0.5 xl:space-x-2">
-                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="#" title="Accueil">Accueil</a>
-                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="#" title="Les Blog">Les Blogs</a>
-                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="#" title="Notre concept">Notre Concept</a>
-                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="#" title="Contact">Contact</a>
+                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="{{ path('homepage') }}" title="Accueil">Accueil</a>
+                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="{{ path('blogs') }}" title="Les Blog">Les Blogs</a>
+                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="{{ path('concept') }}" title="Notre concept">Notre Concept</a>
+                        <a class="md:p-2 lg:px-4 hidden md:block lg:text-sm xl:text-xl uppercase px-4 py-1 text-main-white" href="{{ path('contact') }}" title="Contact">Contact</a>
                     </div>
 
                     <!-- Bouton de menu version mobile -->
