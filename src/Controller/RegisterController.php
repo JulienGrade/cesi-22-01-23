@@ -49,7 +49,8 @@ class RegisterController extends AbstractController
         }
         return $this->render('register/index.html.twig', [
             'registerForm' => $userForm,
-            'notification' => $notification
+            'notification' => $notification,
+            'current_menu' => 'homepage'
         ]);
     }
 }

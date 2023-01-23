@@ -15,6 +15,8 @@ class BlogsController extends AbstractController
     #[Route('/les-blogs', name: 'blogs')]
     public function index(): Response
     {
-        return $this->render('blogs/index.html.twig');
+        return $this->render('blogs/index.html.twig', [
+            'current_menu' => 'blog'
+        ]);
     }
 }

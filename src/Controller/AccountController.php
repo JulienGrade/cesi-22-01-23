@@ -6,17 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ConceptController extends AbstractController
+class AccountController extends AbstractController
 {
     /**
-     * Permet d'afficher la page notre concept
+     * Permet d'afficher la page mon espace
      * @return Response
      */
-    #[Route('/notre-concept', name: 'concept')]
+    #[Route('/mon-espace', name: 'account')]
     public function index(): Response
     {
-        return $this->render('concept/index.html.twig', [
-            'current_menu' => 'concept'
+        return $this->render('account/index.html.twig', [
+            'current_menu' => 'homepage',
         ]);
     }
 }
