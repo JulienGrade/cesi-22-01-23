@@ -2,6 +2,136 @@
 
 {% block title %}Notre concept - TailBlog{% endblock %}
 
+
 {% block body %}
-    <h1 class="text-xl text-main-blue">Notre concept</h1>
+    <section class="bg-main-white dark:bg-main-black w-full md:w-11/12 lg:w-10/12 xl:w-9/12 mx-auto mt-12">
+        <!-- component -->
+        <div class="w-full my-20 rounded-3xl px-6 bg-main-blue dark:bg-main-black shadow-lg">
+            <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+                <div class="flex flex-col items-center justify-between w-full mb-10 lg:flex-row">
+                    <div class="mb-16 lg:mb-0 lg:max-w-lg lg:pr-5">
+                        <div class="max-w-xl mb-6">
+
+                            <h2 class="font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none max-w-lg mb-6">
+                                Étape 1 : Je créé mon compte
+                            </h2>
+                            <p class="text-white text-base md:text-lg"> Afin de pouvoir créer votre premier blog gratuitement, vous devez vous inscrire sur la plateforme.
+                            </p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <a
+                                    href="{{ path('register') }}"
+                                    class="cursor-pointer flex object-cover sm:mr-64 mr-32 object-top items-center text-main-blue border border-2 border-main-blue font-extrabold transition-all duration-500 justify-center text-main-blue hover:border-main-white hover:text-main-white hover:bg-main-blue w-full sm:px-10 py-4 leading-6 bg-main-white rounded-lg"
+                            >
+                                Je m'inscris
+                            </a>
+                        </div>
+                    </div>
+                    <img alt="logo" width=450 height=450 src="{{ asset('assets/media/sign-up.jpg') }}" />
+                </div>
+            </div>
+
+
+
+            <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+                <div class="flex flex-col items-center justify-between w-full mb-10 lg:flex-row">
+
+                    <img alt="blog creation" width=450 height=450 src="{{ asset('assets/media/blog-1.jpg') }}" />
+
+
+                    <div class="mb-16 lg:mb-0 lg:max-w-lg lg:pr-5">
+
+                        <div class="max-w-xl mb-6">
+
+                            <h2 class="font-sans text-3xl sm:mt-0 mt-6 font-bold tracking-tight text-white sm:text-4xl sm:leading-none max-w-lg mb-6">
+                                Étape 2 : Je crée mon premier blog
+                            </h2>
+                            <p class="text-white text-base md:text-lg">Avant de pouvoir rédiger votre premier article, vous devez créer votre premier blog dans votre espace.
+
+                            </p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <a
+                                    href="{{ path('account') }}"
+                                    class="cursor-pointer flex object-cover sm:mr-64 mr-32 object-top items-center text-main-blue border border-2 border-main-blue font-extrabold transition-all duration-500 justify-center text-main-blue hover:border-main-white hover:text-main-white hover:bg-main-blue w-full sm:px-10 py-4 leading-6 bg-main-white rounded-lg"
+                            >
+                                Mon espace
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+                <div class="flex flex-col items-center justify-between w-full mb-10 lg:flex-row">
+                    <div class="mb-16 lg:mb-0 lg:max-w-lg lg:pr-5">
+                        <div class="max-w-xl mb-6">
+
+                            <h2 class="font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none max-w-lg mb-6">
+                                Étape 3 : Je rédige mon premier article
+                            </h2>
+                            <p class="text-white text-base md:text-lg">Maintenant que vous avez créé votre blog, vous pouvez rédiger votre premier article et le publier.
+
+                            </p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <a
+                                    href="#"
+                                    class="cursor-pointer flex object-cover sm:mr-64 mr-32 object-top items-center text-main-blue border border-2 border-main-blue font-extrabold transition-all duration-500 justify-center text-main-blue hover:border-main-white hover:text-main-white hover:bg-main-blue w-full sm:px-10 py-4 leading-6 bg-main-white rounded-lg"
+                            >
+                                Mes articles
+                            </a>
+                        </div>
+                    </div>
+                    <img alt="logo" width=450 height=450 src="{{ asset('assets/media/redact.jpg') }}" />
+                </div>
+            </div>
+
+
+            <div class="sm:px-4 py-16  sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+                <div class="flex flex-col max-w-screen-lg overflow-hidden bg-white border rounded-3xl shadow-sm lg:flex-row sm:mx-auto">
+                    <div class="relative lg:w-1/2">
+                        <img
+                                width="50"
+                                height="50"
+                                src="{{ asset('assets/media/contact.webp') }}"
+                                alt="mobile app"
+                                class="object-cover w-full lg:absolute h-80 lg:h-full"
+                        />
+                        <svg
+                                class="absolute top-0 right-0 hidden h-full text-white lg:inline-block"
+                                viewBox="0 0 20 104"
+                                fill="#f0edee"
+                        >
+                            <polygon points="17.3036738 5.68434189e-14 20 5.68434189e-14 20 104 0.824555778 104" />
+                        </svg>
+                    </div>
+
+
+
+
+                    <div class="flex flex-col justify-center p-8 bg-main-white lg:p-16 lg:pl-10 lg:w-1/2">
+
+                        <h5 class="mb-3 text-3xl text-main-blue font-extrabold leading-none sm:text-4xl">
+                            Besoin d'aide !
+                        </h5>
+                        <p class="mb-8 text-main-black">
+                            Nos équipes se feront un plaisir de répondre à vos questions
+                        </p>
+                        <div class="flex items-left">
+                            <a
+                                    href="{{ path('contact') }}"
+                                    class="flex hover:border-2 hover:shadow-xl hover:bg-main-white hover:border-main-blue hover:text-main-blue transition-all duration-500 items-center bg-main-blue text-main-white border border-2 justify-center w-full sm:px-10 py-4 leading-6 rounded-lg"
+                            >
+                                Contactez nous
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 {% endblock %}

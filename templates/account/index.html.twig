@@ -3,5 +3,10 @@
 {% block title %}Mon espace - TailBlog{% endblock %}
 
 {% block body %}
-<h1 class="text-xl text-main-blue">Mon espace</h1>
+<div class="flex justify-between w-screen">
+    {% include '/partials/sidebar.html.twig' %}
+    <div class="relative bg-main-white dark:bg-main-black min-h-screen w-10/12 ml-[4.15rem] md:ml-[8rem] lg:ml-[15rem] xl:ml-[26rem] p-4 md:p-8 lg:p-12">
+        Contenu
+    </div>
+</div>
 {% endblock %}
