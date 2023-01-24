@@ -1,12 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes blogs - TailBlog{% endblock %}
+{% block title %}Mon Blog - TailBlog{% endblock %}
 
 {% block body %}
     <div class="flex justify-between w-screen">
         {% include '/partials/sidebar.html.twig' %}
         <div class="relative bg-main-white dark:bg-main-black min-h-screen w-10/12 ml-[4.15rem] md:ml-[8rem] lg:ml-[15rem] xl:ml-[26rem] p-4 md:p-8 lg:p-12">
-            Contenu
+            <section class="lg:flex lg:justify-center lg:items-center lg:space-x-12">
+                <div class="w-1/2 flex justify-center h-72 items-center">
+                    {% if app.user.blogs|length == 0 %}
+                        <div>
+                            <h2 class="text-lg text-center md:text-xl xl:text-2xl text-main-blue">Il est temps de créer votre premier Blog sur TailBlog</h2>
+                            <p class="text-center md:text-lg xl:text-xl mt-5 text-main-black">
+                                Il semblerait que vous n'ayez encore créé aucun blog.<br/>
+                                Vous pouvez en créer un avec le formulaire de cette page.
+                            </p>
+                        </div>
+                    {% else %}
+                        <div>
+                            <h2 class="text-lg text-center md:text-xl xl:text-2xl text-main-blue">Bienvenue dans votre espace de gestion de vos blogs</h2>
+                            <p class="text-center md:text-lg xl:text-xl mt-5 text-main-black">
+                                Il semblerait que vous ayez déjà créé au moins un blog.<br/>
+                            </p>
+                            <h3 class="text-center md:text-lg xl:text-xl mt-5 text-main-black">Liste de vos blogs</h3>
+                            <hr class="my-3 md:my-5 w-1/4 mx-auto border-main-blue"/>
+                            <ul class="text-center mt-5">
+                                {% for blog in app.user.blogs %}
+                                    <li>- <a>{{ blog.name|capitalize }} <span class="italic">0 Article(s)</span></a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="w-1/2">
+                    <h2 class="text-lg text-center md:text-xl xl:text-2xl text-main-blue">Créez votre blog</h2>
+                    {{ form_start(blogForm) }}
+                    <div>
+                        {{ form_row(blogForm.name) }}
+                    </div>
+                    <div>
+                        {{ form_row(blogForm.illustration) }}
+                    </div>
+                    <div>
+                        {{ form_row(blogForm.description) }}
+                    </div>
+                    <div class="mt-5">
+                        {{ form_row(blogForm.submit) }}
+                    </div>
+                    {{ form_end(blogForm) }}
+                </div>
+            </section>
+            <!-- Tableaux des blogs -->
+            <div class="mt-12 lg:mt-20 xl:mt-24 mx-4">
+                <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                    <div class="w-full overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                            <tr class="font-extrabold tracking-wide text-left uppercase border-b bg-main-blue text-main-white dark:text-white">
+                                <th class="px-4 py-3">Image</th>
+                                <th class="px-4 py-3">Titre</th>
+                                <th class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Blog</th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700 bg-gray-800">
+                            {% for blog in app.user.blogs %}
+                                <tr class="hover:bg-main-white bg-white">
+                                    <td class="px-4 py-3 text-main-black">
+                                        <div class="flex items-center text-sm">
+                                            <div class="relative hidden w-10 h-10 mr-3 rounded-full md:block">
+                                                <a target="_blank" rel="noreferrer noopener" href="#">
+                                                    <img class="object-cover w-full h-full rounded-md" src="{{ asset('/uploads/blog/illustration/'~blog.illustration) }}" alt="{{ blog.name }}" loading="lazy" />
+                                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <a target="_blank" rel="noreferrer noopener" href="#">
+                                            {{ blog.name|capitalize }}
+                                        </a>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        {{ blog.createdAt|date('d-m-Y') }}
+                                    </td>
+                                    <td class="px-4 py-3 text-main-black">
+                                        {{ blog.articles|length }} Article(s)
+                                    </td>
+                                    <td class="px-4 py-3 text-main-black">
+                                        <a href="#"><i class="fas text-main-light-blue fa-info-circle mr-1"></i>Éditer</a>
+                                        <a onclick="confirm('Supprimer le blog et tout ses articles ?')" class="ml-8" href="#"><i class="text-main-orange fas fa-trash mr-1"></i>Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
     </div>
 {% endblock %}
