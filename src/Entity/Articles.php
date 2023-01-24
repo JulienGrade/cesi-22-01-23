@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+#[UniqueEntity('title', 'Un autre article porte déjà ce titre')]
 #[ORM\Entity(repositoryClass: ArticlesRepository::class)]
 class Articles
 {

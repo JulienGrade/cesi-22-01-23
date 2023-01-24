@@ -7,8 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
+
+
+#[UniqueEntity('name', 'Un autre blog porte déjà ce nom')]
 #[ORM\Entity(repositoryClass: BlogRepository::class)]
 class Blog
 {
@@ -17,6 +22,8 @@ class Blog
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10, max: 200, minMessage: 'Le nom du blog ne peut pas comporter moin de 10 caractères', maxMessage: 'Le nom du blog ne peut pas excéder 200 caractères')]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
