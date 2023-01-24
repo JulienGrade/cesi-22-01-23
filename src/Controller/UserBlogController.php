@@ -60,10 +60,5 @@ class UserBlogController extends AbstractController
             'current_menu' => 'accueil',
             'current_sidebar' => 'blog'
         ]);
-
-        return $this->render('user_blog/index.html.twig', [
-            'blogs' => $blogs,
-            'current_menu' => 'blog',
-        ]);
     }
 }
