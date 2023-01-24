@@ -1,0 +1,220 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes articles - TailBlog{% endblock %}
+
+{% block body %}
+    <div class="flex justify-between w-screen">
+        {% include '/partials/sidebar.html.twig' %}
+        <div class="relative bg-main-white dark:bg-main-black min-h-screen w-10/12 ml-[4.15rem] md:ml-[8rem] lg:ml-[15rem] xl:ml-[26rem] p-4 md:p-8 lg:p-12">
+            <section>
+                {% for message in app.flashes('articles_delete_success') %}
+                    <div class="bg-main-orange w-full alerted mt-5 rounded-lg p-4 mb-4 text-main-white mx-auto" role="alert">
+                        {{ message }}
+                        <button class="bg-transparent text-2xl font-semibold leading-none clothesline text-main-white float-right outline-none focus:outline-none" onclick="closeAlert(event)">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('articles_create_success') %}
+                    <div class="bg-main-green w-full alerted mt-5 rounded-lg p-4 mb-4 text-main-white mx-auto" role="alert">
+                        {{ message }}
+                        <button class="bg-transparent text-2xl font-semibold leading-none clothesline text-main-white float-right outline-none focus:outline-none" onclick="closeAlert(event)">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+                {% if articles|length == 0 and app.user.blogs|length == 0 %}
+                    <div class="bg-main-blue p-4 md:p-6 lg:p-8 xl:p-10 text-main-white rounded-xl">
+                        <h3 class="text-lg md:text-xl lg:text-2xl xl:text-3xl text-center">Vous n'avez pas encore d'articles ni de blog !</h3>
+                        <p class="md:text-lg lg:text-xl mt-5 text-center">Commencez par créer votre premier blog, ensuite vous pourrez rédiger votre premier article.</p>
+                        <div class="flex justify-center items-center mt-5">
+                            <a class="px-6 py-3 text-main-white hover:text-main-blue rounded-md bg-main-blue hover:bg-main-white border border-main-white transition-all duration-500" href="{{ path('user_blog') }}">Créer mon blog</a>
+                        </div>
+                    </div>
+                {% elseif articles|length == 0 and app.user.blogs|length >= 1 %}
+                    <div class="">
+                        <div class="flex justify-center items-center mt-3">
+                            <button type="button" onclick="toggleModal('modal-article-create')" class="text-lg px-8 py-2 rounded-xl bg-main-blue hover:bg-main-white text-main-white hover:text-main-blue border border-main-white hover:border-main-blue transition-all duration-500 md:text-xl lg:text-2xl my-2 md:my-3 text-center">Ajouter un article</button>
+                        </div>
+                        <div id="modal-article-create" class="hidden text-lg w-full mx-auto">
+                            {{ form_start(articleForm) }}
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="blog">
+                                        {{ form_label(articleForm.blog) }}
+                                    </label>
+                                    {{ form_widget(articleForm.blog) }}
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="title">
+                                        {{ form_label(articleForm.title) }}
+                                    </label>
+                                    {{ form_widget(articleForm.title) }}
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="title">
+                                        {{ form_label(articleForm.introduction) }}
+                                    </label>
+                                    {{ form_widget(articleForm.introduction) }}
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="blog">
+                                        {{ form_label(articleForm.content) }}
+                                    </label>
+                                    {{ form_widget(articleForm.content) }}
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="content">
+                                        {{ form_label(articleForm.images) }}
+                                    </label>
+                                    {{ form_widget(articleForm.images) }}
+                                </div>
+                            </div>
+                            <div class="w-full">
+                                <div class="mb-6 text-center">
+                                    {{ form_row(articleForm.submit) }}
+                                </div>
+                            </div>
+
+                            {{ form_end(articleForm) }}
+                        </div>
+                    </div>
+                {% else %}
+                    <div>
+                        <!-- Tableaux des articles -->
+                        <div class="mt-4 mx-4">
+                            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                                <div class="w-full overflow-x-auto">
+                                    <table class="w-full">
+                                        <thead>
+                                        <tr class="font-extrabold tracking-wide text-left uppercase border-b bg-main-blue text-main-white dark:text-white">
+                                            <th class="px-4 py-3">Image</th>
+                                            <th class="px-4 py-3">Titre</th>
+                                            <th class="px-4 py-3">Date</th>
+                                            <th class="px-4 py-3">Blog</th>
+                                            <th class="px-4 py-3">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-700 bg-gray-800">
+                                        {% for article in articles %}
+                                            <tr class="hover:bg-main-white bg-white">
+                                                <td class="px-4 py-3 text-main-black">
+                                                    <div class="flex items-center text-sm">
+                                                        <div class="relative hidden w-10 h-10 mr-3 rounded-full md:block">
+                                                            <a target="_blank" rel="noreferrer noopener" href="#">
+                                                                <img class="object-cover w-full h-full rounded-md" src="{{ asset('/uploads/articles/images/'~article.images[0].name) }}" alt="{{ article.title }}" loading="lazy" />
+                                                                <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <a target="_blank" rel="noreferrer noopener" href="#">
+                                                        {{ article.title|capitalize }}
+                                                    </a>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    {{ article.createdAt|date('d-m-Y') }}
+                                                </td>
+                                                <td class="px-4 py-3 text-main-black">
+                                                    {{ article.blog.name }}
+                                                </td>
+                                                <td class="px-4 py-3 text-main-black">
+                                                    <a href="#"><i class="fas text-main-light-blue fa-info-circle mr-1"></i>Éditer</a>
+                                                    <a onclick="confirm('Supprimer l\'article ?')" class="ml-8" href="#"><i class="text-main-orange fas fa-trash mr-1"></i>Supprimer</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="flex justify-center items-center mt-3">
+                            <button type="button" onclick="toggleModal('modal-article-create')" class="text-lg px-8 py-2 rounded-xl bg-main-blue hover:bg-main-white text-main-white hover:text-main-blue border border-main-white hover:border-main-blue transition-all duration-500 md:text-xl lg:text-2xl my-2 md:my-3 text-center">Ajouter un article</button>
+                        </div>
+                        <div id="modal-article-create" class="hidden text-lg w-full mx-auto">
+                            {{ form_start(articleForm) }}
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="blog">
+                                        {{ form_label(articleForm.blog) }}
+                                    </label>
+                                    {{ form_widget(articleForm.blog) }}
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="title">
+                                        {{ form_label(articleForm.title) }}
+                                    </label>
+                                    {{ form_widget(articleForm.title) }}
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="blog">
+                                        {{ form_label(articleForm.introduction) }}
+                                    </label>
+                                    {{ form_widget(articleForm.introduction) }}
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="blog">
+                                        {{ form_label(articleForm.content) }}
+                                    </label>
+                                    {{ form_widget(articleForm.content) }}
+                                </div>
+                            </div>
+                            <div class="mb-4 mt-5">
+                                <div class="mb-4 md:mb-0 ">
+                                    <label class="block mb-2 font-bold text-main-grey" for="content">
+                                        {{ form_label(articleForm.images) }}
+                                    </label>
+                                    {{ form_widget(articleForm.images) }}
+                                </div>
+                            </div>
+                            <div class="w-full">
+                                <div class="mb-6 text-center">
+                                    {{ form_row(articleForm.submit) }}
+                                </div>
+                            </div>
+
+                            {{ form_end(articleForm) }}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </section>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        function toggleModal(modalID){
+            document.getElementById(modalID).classList.toggle("hidden");
+            document.getElementById(modalID).classList.toggle("block");
+        }
+    </script>
+    <script>
+        function closeAlert(event){
+            let element = event.target;
+            while(element.nodeName !== "BUTTON"){
+                element = element.parentNode;
+            }
+            element.parentNode.parentNode.removeChild(element.parentNode);
+        }
+    </script>
+{% endblock %}

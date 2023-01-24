@@ -13,6 +13,7 @@ services:
         bind:
             string $blogIllustrationDir: "%kernel.project_dir%/public/uploads/blog/illustration"
             string $userAvatarDir: "%kernel.project_dir%/public/uploads/user/avatar"
+            string $articleImagesDir: "%kernel.project_dir%/public/uploads/articles/images"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -29,3 +30,7 @@ services:
         tags:
             - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\Blog' }
             - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\Blog' }
+    App\EntityListener\ArticlesEntityListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\Articles' }
+            - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\Articles' }

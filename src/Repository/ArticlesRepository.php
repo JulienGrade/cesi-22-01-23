@@ -39,6 +39,22 @@ class ArticlesRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Permet de rechercher les articles d'un utilisateur
+     * @param $user
+     * @return float|int|mixed|string
+     */
+    public function findUserArticles($user): mixed
+    {
+        return $this->createQueryBuilder('a')
+            ->groupBy('a')
+            ->andWhere('a.author = :user')
+            ->setParameter('user', $user)
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
 //     */
