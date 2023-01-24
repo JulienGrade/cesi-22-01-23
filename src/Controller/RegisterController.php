@@ -19,7 +19,7 @@ class RegisterController extends AbstractController
      * @throws \Exception
      */
     #[Route('/inscription', name: 'register')]
-    public function index(UserPasswordHasherInterface $encoder,EntityManagerInterface $entityManager, Request $request): Response
+    public function index(UserPasswordHasherInterface $encoder,EntityManagerInterface $entityManager, Request $request, string $userAvatarDir): Response
     {
         $notification = null;
         $user = new User();
@@ -37,7 +37,16 @@ class RegisterController extends AbstractController
                 $dateTimeZone = new \DateTimeZone('Europe/Paris');
                 $date = new \DateTimeImmutable('now', $dateTimeZone);
                 $user->setCreatedAt($date);
-
+                // On upload l'avatar si il y en a un
+                if($avatar = $userForm['avatar']->getData()){
+                    $avatarFilename = bin2hex(random_bytes(6)).'.'.$avatar->guessExtension();
+                    try {
+                        $avatar->move($userAvatarDir, $avatarFilename);
+                    } catch (FileException $e){
+                        $this->addFlash('error_upload_avatar', 'Une erreur est survenue lors de l\'upload de l\'image');
+                    }
+                    $user->setAvatar($avatarFilename);
+                }
                 $entityManager->persist($user);
                 $entityManager->flush();
 

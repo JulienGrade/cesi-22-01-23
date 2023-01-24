@@ -5,12 +5,14 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class RegisterType extends AbstractType
 {
@@ -66,14 +68,21 @@ class RegisterType extends AbstractType
                 ]
             ])
 
-            ->add('avatar', TextType::class, [
-                'label' => 'Votre avatar',
+            ->add('avatar', FileType::class, [
+                'required' => true,
+                'mapped' => false,
+                'label' => 'Votre photo de profil',
                 'attr' => [
-                    'placeholder' => 'Merci de saisir votre avatar',
-                    'class' => 'block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
+                    'class' => 'form-file border mt-1 rounded py-4 px-4 w-full lg:w-1/2 mx-auto',
+                    'placeholder' => 'Importer une image pour votre profil',
                 ],
-                'label_attr' => ['class'=> 'text-main-blue'],
-                'required' => false
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '2048k',
+                        'mimeTypes' => ["image/png", "image/jpeg", "image/pjpeg", "image/svg+xml"],
+                        'mimeTypesMessage' => "Formats d'image supportés : .jpg, .png, .jpeg, .svg, .mp4"
+                    ])
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'S\'inscrire',

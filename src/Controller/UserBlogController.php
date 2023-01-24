@@ -15,6 +15,8 @@ class UserBlogController extends AbstractController
     /**
      * Permet d'afficher la page de gestion de blog dans mon espace
      * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param string $blogIllustrationDir
      * @return Response
      * @throws \Exception
      */
