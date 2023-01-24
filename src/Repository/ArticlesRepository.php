@@ -55,6 +55,16 @@ class ArticlesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getLastArticle($limit)
+    {
+        return $this->createQueryBuilder('a')
+            ->groupBy('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
 //     */
