@@ -1,7 +1,712 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Le Blog {{ blog.name|capitalize}} - TailBlog{% endblock %}
+{% block title %}Les Blogs - TailBlog{% endblock %}
+
 
 {% block body %}
-{{ dump(blog) }}
+    <div class="w-full m-0 p-0 bg-cover bg-bottom" style="background-image:url('{{ asset('uploads/blog/illustration/'~blog.illustration) }}'); height: 60vh; max-height:460px;">
+        <div class="container max-w-4xl mx-auto pt-16 md:pt-32 text-center break-normal">
+            <!--Title-->
+            <h1 class="text-white font-extrabold text-3xl md:text-5xl">
+                {{ blog.name|capitalize }}
+            </h1>
+            <p class="text-xl md:text-2xl text-main-white">{{ blog.description|capitalize }}</p>
+        </div>
+    </div>
+
+    <!--Container-->
+    <div class="container px-4 md:px-0 max-w-6xl mx-auto -mt-32">
+
+        <div class="mx-0 sm:mx-6">
+            <div class="bg-main-white dark:bg-main-black w-full text-xl md:text-2xl text-gray-800 leading-normal rounded-t">
+                {% if blog.articles|length == 0 %}
+                Pas d'article
+                {% elseif blog.articles|length == 1 %}
+                <!--Lead Card-->
+                <div class="flex h-full bg-white rounded overflow-hidden shadow-lg mt-12">
+                    <a href="{{ path('article_show', {'slug': blog.articles[0].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                        <div class="w-full md:w-2/3 rounded-t">
+                            <img alt="{{ blog.articles[0].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[0].images[0].name) }}" class="h-full w-full shadow">
+                        </div>
+
+                        <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
+                            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl pt-6 px-6">{{ blog.articles[0].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[0].introduction }}</div>
+                            </div>
+
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-between">
+                                    {% if blog.author.avatar %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[0].author.avatar) }}" alt="Avatar de {{ blog.articles[0].author.pseudo }}">
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                    {% endif %}
+                                    <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--/Lead Card-->
+                {% elseif blog.articles|length == 2 %}
+                <!--Lead Card-->
+                <div class="flex h-full bg-white rounded overflow-hidden shadow-lg mt-12">
+                    <a href="{{ path('article_show', {'slug': blog.articles[0].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                        <div class="w-full md:w-2/3 rounded-t">
+                            <img alt="{{ blog.articles[0].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[0].images[0].name) }}" class="h-full w-full shadow">
+                        </div>
+
+                        <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
+                            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl pt-6 px-6">{{ blog.articles[0].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[0].introduction }}</div>
+                            </div>
+
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-between">
+                                    {% if blog.author.avatar %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[0].author.avatar) }}" alt="Avatar de {{ blog.articles[0].author.pseudo }}">
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                    {% endif %}
+                                    <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+                <!--Lead Card-->
+                <div class="flex h-full bg-white rounded overflow-hidden shadow-lg mt-8">
+                    <a href="{{ path('article_show', {'slug': blog.articles[1].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                        <div class="w-full md:w-2/3 rounded-t">
+                            <img alt="{{ blog.articles[1].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[1].images[0].name) }}" class="h-full w-full shadow">
+                        </div>
+
+                        <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
+                            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl pt-6 px-6">{{ blog.articles[1].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[1].introduction }}</div>
+                            </div>
+
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-between">
+                                    {% if blog.author.avatar %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[0].author.avatar) }}" alt="Avatar de {{ blog.articles[0].author.pseudo }}">
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                    {% endif %}
+                                    <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+                {% elseif blog.articles|length == 3 %}
+                <!--Lead Card-->
+                <div class="flex h-full bg-white rounded overflow-hidden shadow-lg mt-12">
+                    <a href="{{ path('article_show', {'slug': blog.articles[0].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                        <div class="w-full md:w-2/3 rounded-t">
+                            <img alt="{{ blog.articles[0].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[0].images[0].name) }}" class="h-full w-full shadow">
+                        </div>
+
+                        <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
+                            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl pt-6 px-6">{{ blog.articles[0].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[0].introduction }}</div>
+                            </div>
+
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-between">
+                                    {% if blog.author.avatar %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[0].author.avatar) }}" alt="Avatar de {{ blog.articles[0].author.pseudo }}">
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                    {% endif %}
+                                    <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+                <div class="flex flex-wrap justify-between pt-12 -mx-6">
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[1].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[1].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[1].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[1].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[1].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[1].author.avatar) }}" alt="Avatar de {{ blog.articles[1].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[2].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[2].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[2].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[2].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[2].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[2].author.avatar) }}" alt="Avatar de {{ blog.articles[2].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% elseif blog.articles|length == 4 %}
+                <!--Lead Card-->
+                <div class="flex h-full bg-white rounded overflow-hidden shadow-lg mt-12">
+                    <a href="{{ path('article_show', {'slug': blog.articles[0].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                        <div class="w-full md:w-2/3 rounded-t">
+                            <img alt="{{ blog.articles[0].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[0].images[0].name) }}" class="h-full w-full shadow">
+                        </div>
+
+                        <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
+                            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl pt-6 px-6">{{ blog.articles[0].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[0].introduction }}</div>
+                            </div>
+
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-between">
+                                    {% if blog.author.avatar %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[0].author.avatar) }}" alt="Avatar de {{ blog.articles[0].author.pseudo }}">
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                    {% endif %}
+                                    <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+                <!--/Lead Card-->
+                <div class="flex flex-wrap justify-between pt-12 -mx-6">
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[1].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[1].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[1].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[1].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[1].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[1].author.avatar) }}" alt="Avatar de {{ blog.articles[1].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[2].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[2].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[2].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[2].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[2].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[2].author.avatar) }}" alt="Avatar de {{ blog.articles[2].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[3].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[3].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[3].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[3].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[3].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[3].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[3].author.avatar) }}" alt="Avatar de {{ blog.articles[3].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[3].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% elseif blog.articles|length == 5 %}
+                <!--Lead Card-->
+                <div class="flex h-full bg-white rounded overflow-hidden shadow-lg mt-12">
+                    <a href="{{ path('article_show', {'slug': blog.articles[0].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                        <div class="w-full md:w-2/3 rounded-t">
+                            <img alt="{{ blog.articles[0].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[0].images[0].name) }}" class="h-full w-full shadow">
+                        </div>
+
+                        <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
+                            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl pt-6 px-6">{{ blog.articles[0].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[0].introduction }}</div>
+                            </div>
+
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-between">
+                                    {% if blog.author.avatar %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[0].author.avatar) }}" alt="Avatar de {{ blog.articles[0].author.pseudo }}">
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                    {% endif %}
+                                    <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+                <div class="flex flex-wrap justify-between pt-12 -mx-6">
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[1].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[1].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[1].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[1].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[1].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[1].author.avatar) }}" alt="Avatar de {{ blog.articles[1].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[2].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[2].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[2].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[2].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[2].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[2].author.avatar) }}" alt="Avatar de {{ blog.articles[2].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap justify-between pt-12 -mx-6">
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[3].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[3].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[3].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[3].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[3].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[3].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[3].author.avatar) }}" alt="Avatar de {{ blog.articles[3].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[3].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[4].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[4].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[4].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[4].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[4].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[4].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[4].author.avatar) }}" alt="Avatar de {{ blog.articles[4].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[4].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% elseif blog.articles|length == 6 %}
+                <!--Lead Card-->
+                <div class="flex h-full bg-white rounded overflow-hidden shadow-lg mt-12">
+                    <a href="{{ path('article_show', {'slug': blog.articles[0].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                        <div class="w-full md:w-2/3 rounded-t">
+                            <img alt="{{ blog.articles[0].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[0].images[0].name) }}" class="h-full w-full shadow">
+                        </div>
+
+                        <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
+                            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl pt-6 px-6">{{ blog.articles[0].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[0].introduction }}</div>
+                            </div>
+
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-between">
+                                    {% if blog.author.avatar %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[0].author.avatar) }}" alt="Avatar de {{ blog.articles[0].author.pseudo }}">
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                    {% endif %}
+                                    <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </a>
+                </div>
+                <div class="flex flex-wrap justify-between pt-12 -mx-6">
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[1].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[1].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[1].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[1].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[1].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[1].author.avatar) }}" alt="Avatar de {{ blog.articles[1].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[2].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[2].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[2].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[2].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[2].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[2].author.avatar) }}" alt="Avatar de {{ blog.articles[2].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap justify-between pt-12 -mx-6">
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[3].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[3].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[3].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[3].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[3].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[3].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[3].author.avatar) }}" alt="Avatar de {{ blog.articles[3].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[3].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[4].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[4].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[4].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[4].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[4].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[4].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[4].author.avatar) }}" alt="Avatar de {{ blog.articles[4].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[4].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[5].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[5].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[5].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[5].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[5].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[5].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[5].author.avatar) }}" alt="Avatar de {{ blog.articles[5].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[5].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% elseif blog.articles|length == 7 %}
+                <!--Lead Card-->
+                <div class="flex h-full bg-white rounded overflow-hidden shadow-lg mt-12">
+                    <a href="{{ path('article_show', {'slug': blog.articles[0].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                        <div class="w-full md:w-2/3 rounded-t">
+                            <img alt="{{ blog.articles[0].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[0].images[0].name) }}" class="h-full w-full shadow">
+                        </div>
+
+                        <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
+                            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl pt-6 px-6">{{ blog.articles[0].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[0].introduction }}</div>
+                            </div>
+
+                            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                                <div class="flex items-center justify-start">
+                                    {% if blog.author.avatar %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[0].author.avatar) }}" alt="Avatar de {{ blog.articles[0].author.pseudo }}">
+                                    {% else %}
+                                        <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[0].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                    {% endif %}
+                                    {{ blog.author.pseudo }}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--/Lead Card-->
+
+
+                <!--Posts Container-->
+                <div class="flex flex-wrap justify-between pt-12 -mx-6">
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[1].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[1].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[1].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[1].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[1].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[1].author.avatar) }}" alt="Avatar de {{ blog.articles[1].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[1].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[2].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[2].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[2].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[2].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[2].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[2].author.avatar) }}" alt="Avatar de {{ blog.articles[2].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[2].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[3].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[3].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[3].images[0].name) }}" class="h-64 w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[3].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[3].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[3].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[3].author.avatar) }}" alt="Avatar de {{ blog.articles[3].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[3].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[4].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[4].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[4].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[4].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[4].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[4].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[4].author.avatar) }}" alt="Avatar de {{ blog.articles[4].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[4].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1/2 col -->
+                    <div class="w-full md:w-1/2 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[5].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[5].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[5].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[5].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[5].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[5].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[5].author.avatar) }}" alt="Avatar de {{ blog.articles[5].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[5].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--1/3 col -->
+                    <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+                            <a href="{{ path('article_show', {'slug': blog.articles[6].slug}) }}" class="flex flex-wrap no-underline hover:no-underline">
+                                <img alt="{{ blog.articles[6].title }}" src="{{ asset('uploads/articles/images/'~blog.articles[6].images[0].name) }}" class="h-full w-full rounded-t pb-6">
+                                <p class="w-full text-main-blue font-extrabold dark:text-white text-xl px-6">{{ blog.articles[6].title }}</p>
+                                <div class="w-full font-bold text-sm text-gray-900 px-6">{{ blog.articles[6].introduction }}</div>
+                            </a>
+                        </div>
+                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+                            <div class="flex items-center justify-between">
+                                {% if blog.author.avatar %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[6].author.pseudo }}" src="{{ asset('uploads/users/avatar/' ~ blog.articles[6].author.avatar) }}" alt="Avatar de {{ blog.articles[6].author.pseudo }}">
+                                {% else %}
+                                    <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="{{ blog.articles[6].author.pseudo }}" src="{{ asset('assets/media/img/user.svg') }}" alt="Avatar par défaut">
+                                {% endif %}
+                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--/ Post Content-->
+            {% endif %}
+
+            <!--Auteur-->
+            <div class="flex w-full items-center font-sans p-8 md:p-24">
+                {% if blog.author.avatar %}
+                    <img
+                            src="{{ asset('uploads/users/avatar/' ~ article.blog.author.avatar) }}" alt="{{ blog.name }}"
+                            class="w-10 h-10 rounded-full overflow-hidden"/>
+                {% else %}
+                    <img
+                            src="{{ asset('assets/media/user.svg') }}" alt="{{ blog.name }}"
+                            class="w-10 h-10 rounded-full overflow-hidden"/>
+                {% endif %}
+                <div class="px-3 flex-1">
+                    <p class="text-base font-bold text-base md:text-xl leading-none">{{ blog.author.pseudo }}</p>
+                    <p class="text-gray-600 text-xs md:text-base">Ce blog a été créé le {{ blog.createdAt|date('d-m-Y')}} , vous povez voir ses <a class="text-gray-800 hover:text-main-blue no-underline border-b-2 border-main-blue" href="#">autres blogs ici</a></p>
+                </div>
+                <div class="justify-end">
+                    <a href="#" class="bg-transparent border border-main-blue dark:border-white text-xs text-main-blue hover:bg-main-blue hover:text-main-white font-bold py-2 px-4 rounded-full">Voir le profil</a>
+                </div>
+            </div>
+            <!--/Author-->
+
+        </div>
+
+
+    </div>
 {% endblock %}
