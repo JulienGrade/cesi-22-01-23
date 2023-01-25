@@ -684,12 +684,14 @@
                 <!--/ Post Content-->
 
             {% endif %}
+            {% if articles|length != 0 %}
             <div class="flex justify-center px-4 py-3  font-semibold tracking-wide  uppercase border-t border-gray-700  sm:grid-cols-9 text-gray-400">
                 <!-- Pagination -->
                 <div class="flex justify-start lg:justify-end items-center my-12">
                     {% include 'partials/pagination/article_pagination.html.twig' with {'route': 'blog_show'} %}
                 </div>
             </div>
+            {% endif %}
 
             <!--Auteur-->
             <div class="flex w-full items-center font-sans p-8 md:p-24">
