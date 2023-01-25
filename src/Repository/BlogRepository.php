@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Blog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -36,6 +38,20 @@ class BlogRepository extends ServiceEntityRepository
 
         if ($flush) {
             $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * Permet de compte le nombre de blogs
+     * @return void
+     */
+    public function getTotalBlogs()
+    {
+        $query = $this->createQueryBuilder('b')
+            ->select('COUNT(b.id)');
+        try {
+            return $query->getQuery()->getSingleScalarResult();
+        } catch (NoResultException|NonUniqueResultException $e) {
         }
     }
 
