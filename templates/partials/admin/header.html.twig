@@ -1,0 +1,44 @@
+<div class="flex flex-col w-full">
+    <nav class="bg-admin-blue">
+        <div class="w-full mx-auto px-4">
+            <div class="flex items-center w-full">
+                <div class="flex items-center space-x-7 w-full">
+                    <!-- Logo -->
+                    <div>
+                        <a href="{{ path('admin_dashboard') }}" class="flex items-center py-4 md:px-2">
+                            <h1 class="text-main-white logo-font lg:text-xl xl:text-2xl">Administration - TailBlog</h1>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <a href="{{ path('admin_account_logout') }}" class="flex items-center text-lg md:text-xl lg:text-2xl mr-4 text-white">
+                        <span class="inline-flex mr-1">
+                            <svg class="w-5 h-5 md:w-8 md:h-8 lg:h-10 lg:w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        </span>
+                        Déconnexion
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<script>
+    const sideMenu = document.getElementById('side-menu');
+    const buttonMenu = document.getElementById('button-menu');
+
+    function openMenu() {
+        sideMenu.classList.remove("w-0", "h-0", "opacity-0");
+        sideMenu.classList.add("w-screen", "h-screen", "opacity-95");
+        buttonMenu.classList.remove("flex");
+        buttonMenu.classList.add("hidden");
+    }
+
+    function closeMenu() {
+        sideMenu.classList.remove("w-screen", "h-screen", "opacity-95");
+        sideMenu.classList.add("w-0", "h-0", "opacity-0");
+        buttonMenu.classList.add("flex");
+        buttonMenu.classList.remove("hidden");
+
+    }
+</script>
