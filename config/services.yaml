@@ -34,3 +34,6 @@ services:
         tags:
             - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\Articles' }
             - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\Articles' }
+    App\Services\PaginationServices:
+        arguments:
+            $templatePath: '/partials/pagination/pagination.html.twig'

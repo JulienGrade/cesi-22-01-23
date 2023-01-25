@@ -68,6 +68,12 @@
                         </div>
                     {% endfor %}
                 </div>
+                <div class="flex justify-center px-4 py-3  font-semibold tracking-wide  uppercase border-t border-gray-700  sm:grid-cols-9 text-gray-400">
+                    <!-- Pagination -->
+                    <div class="flex justify-start lg:justify-end items-center my-12">
+                        {% include 'partials/pagination/blog_pagination.html.twig' with {'route': 'blogs'} %}
+                    </div>
+                </div>
             </div>
         </div>
     </section>

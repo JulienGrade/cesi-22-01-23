@@ -1,0 +1,15 @@
+<div class="inline-block">
+    <ul class="flex items-baseline flex-row border border-admin-light-grey rounded-sm w-auto">
+        <li class="bg-gray-400 cursor-pointer text-gray-800 px-3 py-2 text-lg border-r border-white font-bold {% if page == 1 %}cursor-default opacity-50 hover:bg-gray-300 hover:text-gray-800{% else %}hover:bg-gray-300 hover:text-main-blue{% endif %}" >
+            <a class="{% if page == 1 %}cursor-default pointer-events-none opacity-50{% endif %}" href="{{ path('blogs',{'page': page - 1}) }}">&lt;</a>
+        </li>
+        {% for i in 1..pages %}
+            <li class="px-4 py-2 text-lg font-bold {% if page == i %}active bg-main-blue text-main-white hover:bg-main-white hover:text-main-blue {% else %} bg-main-white text-main-light-blue hover:bg-main-light-blue hover:text-main-white {% endif %}transition-all duration-500">
+                <a href="{{ path('blogs', {'page': i}) }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+        <li class="bg-gray-400 cursor-pointer text-gray-800 px-3 py-2 text-lg border-l border-white font-bold {% if page == pages %}cursor-default opacity-50 hover:bg-gray-300 hover:text-gray-800{% else %}hover:bg-gray-300 hover:text-main-blue{% endif %}">
+            <a class="{% if page == pages %}cursor-default pointer-events-none opacity-50{% endif %}" href="{{ path('blogs',{'page': page + 1}) }}">&gt;</a>
+        </li>
+    </ul>
+</div>
