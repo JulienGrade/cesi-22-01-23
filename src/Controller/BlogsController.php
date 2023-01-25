@@ -24,4 +24,19 @@ class BlogsController extends AbstractController
             'current_menu' => 'blog'
         ]);
     }
+
+    /**
+     * Permet d'afficher le détail d'un blog
+     * @return Response
+     */
+    #[Route('/les-blogs/{slug}', name: 'blog_show')]
+    public function show(EntityManagerInterface $entityManager, $slug)
+    {
+        $blog = $entityManager->getRepository(Blog::class)->findOneBySlug($slug);
+
+        return $this->render('blogs/show.html.twig', [
+            'blog' => $blog,
+            'current_menu' => 'blog'
+        ]);
+    }
 }

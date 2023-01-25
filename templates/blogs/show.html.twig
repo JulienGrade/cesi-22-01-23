@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog {{ blog.name|capitalize}} - TailBlog{% endblock %}
+
+{% block body %}
+{{ dump(blog) }}
+{% endblock %}
