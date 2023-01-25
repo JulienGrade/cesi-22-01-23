@@ -43,7 +43,7 @@ class UserArticlesController extends AbstractController
         $articleForm = $this->createForm(ArticlesType::class, $article, array('user' => $this->getUser()));
         $articleForm->handleRequest($request);
 
-        if($articleForm->isSubmitted() && $articleForm->isSubmitted()){
+        if($articleForm->isSubmitted() && $articleForm->isValid()){
             // On traite les images
             $articlesImages = $articleForm->get('images')->getData();
             foreach ($articlesImages as $articleImage){
