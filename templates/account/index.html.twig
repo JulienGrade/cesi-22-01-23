@@ -78,7 +78,7 @@
                         <div class="hidden lg:flex lg:w-1/2 lg:justify-center">
                             {% if app.user.avatar %}
                                 <img
-                                        src="{{ asset('uploads/users/avatar/' ~ article.blog.author.avatar) }}" alt="{{ blog.name }}"
+                                        src="{{ asset('uploads/user/avatar/' ~ app.user.avatar) }}" alt="{{ app.user.pseudo }}"
                                         class="w-[28rem] h-[28rem] flex-shrink-0 object-cover xl:w-[34rem] xl:h-[34rem] rounded-full"/>
                             {% else %}
                                 <img
