@@ -3,8 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -19,9 +24,13 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $manager;
+
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $manager)
     {
         parent::__construct($registry, User::class);
+        $this->manager = $manager;
     }
 
     public function save(User $entity, bool $flush = false): void
@@ -55,6 +64,61 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $this->save($user, true);
     }
+
+    /**
+     * Permet de rechercher le nombre d'utilisateurs
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalUsers(){
+        $query = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)');
+
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Permet de rechercher le nombre d'utilisateurs
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     * @throws Exception
+     */
+    public function getLastMonthUsers(){
+        $dateTimeZone = new DateTimeZone('Europe/Paris');
+        $date = new \DateTimeImmutable('now', $dateTimeZone);
+
+        $query = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where('u.createdAt >= :date')
+            ->setParameter('date', $date->modify('-1month'));
+
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getMonthlyUsers($month){
+        $dateStart = new \DateTime();
+        $currentYear=$dateStart->format('Y');
+        $dateStart->setDate($currentYear, $month,01);
+        $dateStart = $dateStart->format('Y-m-d');
+
+        $dateEnd = new \DateTime();
+        $dateEnd->setDate($currentYear,$month,30);
+        $dateEnd = $dateEnd->format('Y-m-d');
+
+        return $this->manager->createQuery(
+            'SELECT COUNT(u)
+            FROM App\Entity\User u
+            WHERE u.createdAt <= \'' . $dateEnd .'\' AND u.createdAt >= \''. $dateStart.'\''
+        )->getSingleScalarResult();
+    }
+
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

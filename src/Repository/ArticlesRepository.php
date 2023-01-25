@@ -4,6 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Articles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,9 +19,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ArticlesRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $manager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $manager)
     {
         parent::__construct($registry, Articles::class);
+        $this->manager = $manager;
     }
 
     public function save(Articles $entity, bool $flush = false): void
@@ -64,6 +70,41 @@ class ArticlesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * Permet de rechercher le nombre d'articles
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTotalArticles(){
+        $query = $this->createQueryBuilder('a')
+            ->select('COUNT(a.id)');
+
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getMonthlyArticles($month){
+        $dateStart = new \DateTime();
+        $currentYear=$dateStart->format('Y');
+        $dateStart->setDate($currentYear, $month,01);
+        $dateStart = $dateStart->format('Y-m-d');
+
+        $dateEnd = new \DateTime();
+        $dateEnd->setDate($currentYear,$month,30);
+        $dateEnd = $dateEnd->format('Y-m-d');
+
+        return $this->manager->createQuery(
+            'SELECT COUNT(a)
+            FROM App\Entity\Articles a
+            WHERE a.createdAt <= \'' . $dateEnd .'\' AND a.createdAt >= \''. $dateStart.'\''
+        )->getSingleScalarResult();
+    }
+
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects

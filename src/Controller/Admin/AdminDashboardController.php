@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Articles;
 use App\Entity\Blog;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +20,16 @@ class AdminDashboardController extends AbstractController
     #[Route('/admin', name: 'admin_dashboard')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $blogs = $entityManager->getRepository(Blog::class)->getTotalBlogs();
+        $blogCount = $entityManager->getRepository(Blog::class)->getTotalBlogs();
+        $articleCount = $entityManager->getRepository(Articles::class)->getTotalArticles();
+        $userCount = $entityManager->getRepository(User::class)->getTotalUsers();
+        $lastMonthUser = $entityManager->getRepository(User::class)->getLastMonthUsers();
+
         return $this->render('Admin/dashboard/index.html.twig', [
-            'blogs' => $blogs,
+            'blog_count' => $blogCount,
+            'article_count' => $articleCount,
+            'user_count' => $userCount,
+            'last_month_users' => $lastMonthUser,
             'current_menu' => 'blog'
         ]);
     }

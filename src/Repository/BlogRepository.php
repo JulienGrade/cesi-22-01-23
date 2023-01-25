@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Blog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,9 +19,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BlogRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $manager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $manager)
     {
         parent::__construct($registry, Blog::class);
+        $this->manager = $manager;
     }
 
     public function save(Blog $entity, bool $flush = false): void
@@ -54,6 +58,29 @@ class BlogRepository extends ServiceEntityRepository
         } catch (NoResultException|NonUniqueResultException $e) {
         }
     }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getMonthlyBlogs($month){
+        $dateStart = new \DateTime();
+        $currentYear=$dateStart->format('Y');
+        $dateStart->setDate($currentYear, $month,01);
+        $dateStart = $dateStart->format('Y-m-d');
+
+        $dateEnd = new \DateTime();
+        $dateEnd->setDate($currentYear,$month,30);
+        $dateEnd = $dateEnd->format('Y-m-d');
+
+        return $this->manager->createQuery(
+            'SELECT COUNT(b)
+            FROM App\Entity\Blog b
+            WHERE b.createdAt <= \'' . $dateEnd .'\' AND b.createdAt >= \''. $dateStart.'\''
+        )->getSingleScalarResult();
+    }
+
+
 
 //    /**
 //     * @return Blog[] Returns an array of Blog objects
